@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# 🚀 Launch Noctalia Shell cleanly on session boot
+# Note: depending on the version packaged in your nixpkgs channel,
+# it may be invoked via 'noctalia-shell' or its quickshell execution wrapper 'qs -c noctalia-shell'
+noctalia-shell &
+
+# Drop any other fallback daemons you want here (e.g. bluetooth applets or authentication polkits)
+# hyprpolkitagent &

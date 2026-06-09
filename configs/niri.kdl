@@ -1,7 +1,5 @@
 // Include our variables at the very top of the file
-//include "./dms-vars.kdl"
-//include "./wayle-vars.kdl"
-include "./noctalia-vars.kdl"
+
 input {
     keyboard { xkb; }
     touchpad { tap; natural-scroll; }
@@ -54,27 +52,25 @@ window-rule {
 // ----------------------------------------------------------------
 binds {
     // Shell UI Elements
-    Mod+Space          { spawn-sh "$SHELL_LAUNCHER"; }
-    Mod+I              { spawn-sh "$SHELL_CLIPBOARD"; }
-    Mod+Ctrl+Space     { spawn-sh "$SHELL_SETTINGS"; }
-    Mod+L              { spawn-sh "$SHELL_LOCK"; }
-    Mod+X              { spawn-sh "$SHELL_SESSION"; }
-    Mod+Alt+Space      { spawn-sh "$SHELL_CENTER"; }
-    Mod+Y              { spawn-sh "$SHELL_WALLPAPER"; }
+    Mod+Space       { spawn-sh "noctalia-shell ipc call launcher toggle"; }
+    Mod+I           { spawn-sh "noctalia-shell ipc call clipboard toggle"; }
+    Mod+Ctrl+Space  { spawn-sh "noctalia-shell ipc call settings toggle"; }
+    Mod+L           { spawn-sh "noctalia-shell ipc call lock toggle"; }
+    Mod+X           { spawn-sh "noctalia-shell ipc call session toggle"; }
+    Mod+Alt+Space   { spawn-sh "noctalia-shell ipc call center toggle"; }
+    Mod+Y           { spawn-sh "noctalia-shell ipc call wallpaper toggle"; }
 
     // Core Applications
-    Mod+Return         { spawn-sh "$TERMINAL"; }
-    Mod+B              { spawn-sh "$BROWSER"; }
-    Mod+G              { spawn-sh "$STEAM"; }
-    Mod+S              { spawn-sh "$SPOTIFY"; }
-    Mod+E              { spawn-sh "$FILE_MANAGER"; }
+    Mod+Return         { spawn "ghostty"; }
+    Mod+B              { spawn "brave"; }
+    Mod+G              { spawn "steam"; }
+    Mod+S              { spawn "spotify"; }
+    Mod+E              { spawn "nemo"; }
 
-    // Hardware Mappings
-    XF86AudioRaiseVolume   { spawn-sh "$VOL_UP"; }
-    XF86AudioLowerVolume   { spawn-sh "$VOL_DOWN"; }
-    XF86AudioMute          { spawn-sh "$VOL_MUTE"; }
-    XF86MonBrightnessUp    { spawn-sh "$BRIGHT_UP"; }
-    XF86MonBrightnessDown  { spawn-sh "$BRIGHT_DOWN"; }
+    // Volume Mappings
+    XF86AudioRaiseVolume { spawn "noctalia-shell" "ipc" "call" "volume" "increase"; }
+    XF86AudioLowerVolume { spawn "noctalia-shell" "ipc" "call" "volume" "decrease"; }
+    XF86AudioMute { spawn "noctalia-shell" "ipc" "call" "volume" "muteOutput"; }
 
     // Generic Window Actions
     Mod+Q repeat=false { close-window; }

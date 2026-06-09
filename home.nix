@@ -4,8 +4,7 @@ let
   hyprland = osConfig.programs.hyprland.enable or false;
   niri     = osConfig.programs.niri.enable or false;
   noctalia = osConfig.programs.noctalia.enable or false;
-  waybar    = osConfig.programs.waybar.enable or false;
-  qtile    = osConfig.services.xserver.windowManager.qtile.enable or false;
+  labwc    = osConfig.programs.labwc.enable or false;
 in
 {
   home.username = username;
@@ -18,21 +17,16 @@ in
     # Static configs go here
   }
   // lib.optionalAttrs (hyprland && noctalia) {
-    "hypr/hyprland.lua".source = ./configs/hypr-noctalia.lua;
+    "hypr/hyprland.lua".source = ./configs/hyprland.lua;
   }
-  // lib.optionalAttrs (hyprland && waybar) {
-    "hypr/hyprland.lua".source = ./configs/hypr-waybar.lua;
-    # 🛑 Removed waybar.toml link so GUI tool works freely!
-  }
+
   // lib.optionalAttrs (niri && noctalia) {
-    "niri/config.kdl".source = ./configs/niri-noctalia.kdl;
+    "niri/config.kdl".source = ./configs/niri.kdl;
   }
-  // lib.optionalAttrs (niri && waybar) {
-    "niri/config.kdl".source = ./configs/niri-waybar.kdl;
 
-  }
-  // lib.optionalAttrs (qtile && waybar) {
-
+  // lib.optionalAttrs (labwc && noctalia) {
+    "labwc/autostart".source = ./configs/labwc-autostart;
+    "labwc/rc.xml".source = ./configs/labwc-rc.xml;
   };
 
   programs.fish = {

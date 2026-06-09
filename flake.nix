@@ -15,7 +15,7 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, ... }: {
+  outputs = inputs@{ self, nixpkgs, noctalia, home-manager, ... }: {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };
@@ -29,8 +29,7 @@
         ./modules/niri.nix
         ./modules/hyprland.nix
         ./modules/noctalia.nix
-        ./modules/waybar.nix
-#        ./modules/qtile.nix
+#        ./modules/labwc.nix
       ];
     };
   };
