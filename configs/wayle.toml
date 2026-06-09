@@ -1,0 +1,59 @@
+# ~/.config/wayle/config.toml
+[bar]
+location = "top"
+scale = 1.0
+bg = "#1e1e2e"       # Base background color (e.g., Catppuccin Mocha)
+rounding = "md"
+
+[[bar.layout]]
+monitor = "*"
+show = true
+
+left = [
+  "custom-launcher",
+  "window",
+  "workspaces"
+]
+center = [
+  "clock",
+  "weather",
+  "media"
+]
+right = [
+  "systray",
+  "custom-screenshot",
+  "notifications",
+  "custom-settings",
+  "custom-power"
+]
+
+[modules.clock]
+format = "%H:%M"
+
+[modules.weather]
+# Will pull information based on your local network geo-location automatically
+unit = "celsius"
+
+[modules.notifications]
+# Controls the notification indicator behavior on the bar
+show-count = true
+
+[modules.custom-launcher]
+type = "button"
+icon = " " # Launcher/App grid icon (Requires a Nerd Font installed)
+on-click = "wofi --show drun"
+
+[modules.custom-screenshot]
+type = "button"
+icon = "" # Camera lens/screenshot icon
+on-click = "grimshot copy area"
+
+[modules.custom-settings]
+type = "button"
+icon = "" # Gear icon
+on-click = "wayle-settings"
+
+[modules.custom-power]
+type = "button"
+icon = "⏻" # Power symbol icon
+on-click = "wlogout"

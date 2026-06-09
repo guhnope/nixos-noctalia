@@ -1,0 +1,142 @@
+// Include our variables at the very top of the file
+//include "./dms-vars.kdl"
+//include "./wayle-vars.kdl"
+include "./noctalia-vars.kdl"
+input {
+    keyboard { xkb; }
+    touchpad { tap; natural-scroll; }
+    focus-follows-mouse max-scroll-amount="0%"
+}
+
+layout {
+    gaps 16
+    background-color "transparent"
+    center-focused-column "never"
+
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+    }
+    default-column-width { proportion 0.5; }
+
+    focus-ring {
+        width 4
+        active-color "#7fc8ff"
+        inactive-color "#505050"
+    }
+    border { off; }
+    shadow { softness 30; spread 5; offset x=0 y=5; color "#0007"; }
+}
+
+hotkey-overlay { skip-at-startup; }
+prefer-no-csd
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+
+// ----------------------------------------------------------------
+// Window Rules
+// ----------------------------------------------------------------
+window-rule {
+    match app-id=r#"^org\.wezfurlong\.wezterm$"#
+    default-column-width { proportion 0.5; }
+}
+window-rule {
+    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    open-floating true
+}
+window-rule {
+    geometry-corner-radius 20
+    clip-to-geometry true
+}
+
+// ----------------------------------------------------------------
+// Keybinds (Now running entirely on variables)
+// ----------------------------------------------------------------
+binds {
+    // Shell UI Elements
+    Mod+Space          { spawn-sh "$SHELL_LAUNCHER"; }
+    Mod+I              { spawn-sh "$SHELL_CLIPBOARD"; }
+    Mod+Ctrl+Space     { spawn-sh "$SHELL_SETTINGS"; }
+    Mod+L              { spawn-sh "$SHELL_LOCK"; }
+    Mod+X              { spawn-sh "$SHELL_SESSION"; }
+    Mod+Alt+Space      { spawn-sh "$SHELL_CENTER"; }
+    Mod+Y              { spawn-sh "$SHELL_WALLPAPER"; }
+
+    // Core Applications
+    Mod+Return         { spawn-sh "$TERMINAL"; }
+    Mod+B              { spawn-sh "$BROWSER"; }
+    Mod+G              { spawn-sh "$STEAM"; }
+    Mod+S              { spawn-sh "$SPOTIFY"; }
+    Mod+E              { spawn-sh "$FILE_MANAGER"; }
+
+    // Hardware Mappings
+    XF86AudioRaiseVolume   { spawn-sh "$VOL_UP"; }
+    XF86AudioLowerVolume   { spawn-sh "$VOL_DOWN"; }
+    XF86AudioMute          { spawn-sh "$VOL_MUTE"; }
+    XF86MonBrightnessUp    { spawn-sh "$BRIGHT_UP"; }
+    XF86MonBrightnessDown  { spawn-sh "$BRIGHT_DOWN"; }
+
+    // Generic Window Actions
+    Mod+Q repeat=false { close-window; }
+    Mod+F              { maximize-column; }
+    Mod+Shift+F        { fullscreen-window; }
+    Mod+Ctrl+F         { expand-column-to-available-width; }
+    Mod+C              { center-column; }
+    Mod+V              { toggle-window-floating; }
+    Mod+W              { toggle-column-tabbed-display; }
+
+    // Navigation & Layout Maps
+    Mod+Left           { focus-column-left; }
+    Mod+Down           { focus-window-down; }
+    Mod+Up             { focus-window-up; }
+    Mod+Right          { focus-column-right; }
+
+    Mod+Ctrl+Left      { move-column-left; }
+    Mod+Ctrl+Down      { move-window-down; }
+    Mod+Ctrl+Up        { move-window-up; }
+    Mod+Ctrl+Right     { move-column-right; }
+
+    Mod+Page_Down      { focus-workspace-down; }
+    Mod+Page_Up        { focus-workspace-up; }
+    Mod+Ctrl+Page_Down { move-column-to-workspace-down; }
+    Mod+Ctrl+Page_Up   { move-column-to-workspace-up; }
+
+    // Workspace Quick-Keys
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
+    Mod+3 { focus-workspace 3; }
+    Mod+4 { focus-workspace 4; }
+    Mod+5 { focus-workspace 5; }
+    Mod+6 { focus-workspace 6; }
+    Mod+7 { focus-workspace 7; }
+    Mod+8 { focus-workspace 8; }
+    Mod+9 { focus-workspace 9; }
+    Mod+Ctrl+1 { move-column-to-workspace 1; }
+    Mod+Ctrl+2 { move-column-to-workspace 2; }
+    Mod+Ctrl+3 { move-column-to-workspace 3; }
+    Mod+Ctrl+4 { move-column-to-workspace 4; }
+    Mod+Ctrl+5 { move-column-to-workspace 5; }
+    Mod+Ctrl+6 { move-column-to-workspace 6; }
+    Mod+Ctrl+7 { move-column-to-workspace 7; }
+    Mod+Ctrl+8 { move-column-to-workspace 8; }
+    Mod+Ctrl+9 { move-column-to-workspace 9; }
+
+    // System Exits
+    Mod+Shift+E        { quit; }
+    Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+}
+
+// ----------------------------------------------------------------
+// Dynamic Sub-System Execution Loop
+// ----------------------------------------------------------------
+spawn-at-startup "dbus-update-activation-environment" "--systemd" "DISPLAY" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
+// This command now expands the structural shell string we defined in shell-vars
+spawn-at-startup "noctalia-shell"
+//spawn-at-startup "dms" "run"
+
+config-notification { disable-failed; }
+//layer-rule {
+//  match namespace="^noctalia-overview*"
+//  place-within-backdrop true
+//}
+include "./noctalia.kdl"
