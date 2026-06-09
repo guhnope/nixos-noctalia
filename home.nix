@@ -4,25 +4,14 @@ let
   hyprland = osConfig.programs.hyprland.enable or false;
   niri     = osConfig.programs.niri.enable or false;
   noctalia = osConfig.programs.noctalia.enable or false;
-  wayle    = osConfig.programs.wayle.enable or false; # Fixed
+  waybar    = osConfig.programs.waybar.enable or false;
+  qtile    = osConfig.services.xserver.windowManager.qtile.enable or false;
 in
 {
   home.username = username;
   home.homeDirectory = "/home/${username}";
   home.stateVersion = "26.05";
   programs.home-manager.enable = true;
-
- # 🖼️ AUTOMATED USER WALLPAPER SYSTEM
- # services.wpaperd = {
- #   enable = wayle;
- #   settings = {
- #     default = {
- #       path = "/home/${username}/Pictures/Wallpapers/Gruvbox";
- #       duration = "30m";
- #       sorting = "random";
- #     };
- #   };
- # };
 
   # 🖥️ DYNAMIC CONDITIONING MATRIX
   xdg.configFile = {
@@ -31,16 +20,19 @@ in
   // lib.optionalAttrs (hyprland && noctalia) {
     "hypr/hyprland.lua".source = ./configs/hypr-noctalia.lua;
   }
-  // lib.optionalAttrs (hyprland && wayle) {
-    "hypr/hyprland.lua".source = ./configs/hypr-wayle.lua;
-    "wayle/config.toml".source = ./configs/wayle.toml;
+  // lib.optionalAttrs (hyprland && waybar) {
+    "hypr/hyprland.lua".source = ./configs/hypr-waybar.lua;
+    # 🛑 Removed waybar.toml link so GUI tool works freely!
   }
   // lib.optionalAttrs (niri && noctalia) {
     "niri/config.kdl".source = ./configs/niri-noctalia.kdl;
   }
-  // lib.optionalAttrs (niri && wayle) {
-    "niri/config.kdl".source = ./configs/niri-wayle.kdl;
-    "wayle/config.toml".source = ./configs/wayle.toml;
+  // lib.optionalAttrs (niri && waybar) {
+    "niri/config.kdl".source = ./configs/niri-waybar.kdl;
+
+  }
+  // lib.optionalAttrs (qtile && waybar) {
+
   };
 
   programs.fish = {

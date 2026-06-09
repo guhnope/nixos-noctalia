@@ -1,12 +1,12 @@
-# modules/wayle.nix
+# modules/waybar.nix
 { pkgs, lib, config, ... }:
 
 {
-  options.programs.wayle.enable = lib.mkEnableOption "Wayle Desktop Bar Ecosystem";
+  options.programs.waybar.enable = lib.mkEnableOption "waybar Desktop Bar Ecosystem";
 
-  config = lib.mkIf config.programs.wayle.enable {
+  config = lib.mkIf config.programs.waybar.enable {
     environment.systemPackages = with pkgs; [
-      wayle
+      waybar
       wofi
       wlogout
       matugen

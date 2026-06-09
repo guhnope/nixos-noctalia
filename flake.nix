@@ -29,7 +29,8 @@
         ./modules/niri.nix
         ./modules/hyprland.nix
         ./modules/noctalia.nix
-        ./modules/wayle.nix
+        ./modules/waybar.nix
+#        ./modules/qtile.nix
       ];
     };
   };
