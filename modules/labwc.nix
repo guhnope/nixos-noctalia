@@ -1,4 +1,3 @@
-# modules/labwc.nix
 { pkgs, ... }:
 
 {

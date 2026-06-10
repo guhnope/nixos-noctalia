@@ -13,13 +13,13 @@
       url = "github:noctalia-dev/noctalia";
       inputs.nixpkgs.follows = "nixpkgs";
         };
-#    noctalia-greeter = {
-#      url = "github:noctalia-dev/noctalia-greeter";
-#      inputs.nixpkgs.follows = "nixpkgs";
-#    };
+    mango = {
+      url = "github:mangowm/mango";
+      inputs.nixpkgs.follows = "nixpkgs";
+      };
   };
 
-  outputs = inputs@{ self, nixpkgs, noctalia, home-manager, ... }: {
+  outputs = inputs@{ self, nixpkgs, noctalia, mango, home-manager, ... }: {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };
@@ -31,6 +31,7 @@
         ./apps.nix
         ./modules/niri.nix
         ./modules/hyprland.nix
+        ./modules/mango.nix
         ./modules/noctalia.nix
         ./modules/greeter.nix
 #        ./modules/labwc.nix

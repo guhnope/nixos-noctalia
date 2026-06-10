@@ -209,6 +209,7 @@ hl.bind("SUPER + mouse:273", hl.dsp.window.resize(), { mouse = true })
 -- Autostart
 ----------------------------------------------------------------
 hl.on("hyprland.start", function()
+    hl.exec_cmd("hypridle &")
 	hl.exec_cmd("noctalia")
 end)
 

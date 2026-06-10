@@ -1,4 +1,3 @@
-# modules/noctalia-greeter.nix
 { pkgs, ... }:
 
 let
