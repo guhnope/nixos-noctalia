@@ -14,6 +14,7 @@
 
     # You can keep your fallback hyprland shell layout here if desired
     "hypr/hyprland.lua".source = ./configs/hyprland.lua;
+    "hypr/hypridle.conf".source = ./configs/hypridle.conf;
   };
 
   programs.fish = {
