@@ -130,8 +130,8 @@ spawn-at-startup "noctalia"
 
 
 config-notification { disable-failed; }
-//layer-rule {
-//  match namespace="^noctalia-overview*"
-//  place-within-backdrop true
-//}
+layer-rule {
+  match namespace="^noctalia-overview*"
+  place-within-backdrop true
+}
 include "./noctalia.kdl"

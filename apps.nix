@@ -33,6 +33,7 @@
     mpv
     brave
     discord
+    obsidian
     signal-desktop
     zed-editor
     qt6Packages.qt6ct
