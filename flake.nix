@@ -28,7 +28,6 @@
         ./modules/limine.nix
         ./hardware-configuration.nix
         ./configuration.nix
-#        ./regreet/gruvbox.nix
         ./apps.nix
         ./modules/niri.nix
         ./modules/hyprland.nix
