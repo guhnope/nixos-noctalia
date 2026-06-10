@@ -52,13 +52,13 @@ window-rule {
 // ----------------------------------------------------------------
 binds {
     // Shell UI Elements
-    Mod+Space       { spawn-sh "noctalia-shell ipc call launcher toggle"; }
-    Mod+I           { spawn-sh "noctalia-shell ipc call clipboard toggle"; }
-    Mod+Ctrl+Space  { spawn-sh "noctalia-shell ipc call settings toggle"; }
-    Mod+L           { spawn-sh "noctalia-shell ipc call lock toggle"; }
-    Mod+X           { spawn-sh "noctalia-shell ipc call session toggle"; }
-    Mod+Alt+Space   { spawn-sh "noctalia-shell ipc call center toggle"; }
-    Mod+Y           { spawn-sh "noctalia-shell ipc call wallpaper toggle"; }
+    Mod+Space       { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
+    Mod+I           { spawn "noctalia" "msg" "caffeine-toggle"; }
+    Mod+Ctrl+Space  { spawn "noctalia" "msg" "settings-toggle"; }
+    Mod+L           { spawn "noctalia" "msg" "session" "lock"; }
+    Mod+X           { spawn "noctalia" "msg" "session" "toggle"; }
+    Mod+Alt+Space   { spawn "noctalia" "msg" "panel-toggle" "control-center"; }
+    Mod+Y           { spawn "noctalia" "msg" "wallpaper-random"; }
 
     // Core Applications
     Mod+Return         { spawn "ghostty"; }
@@ -68,9 +68,9 @@ binds {
     Mod+E              { spawn "nemo"; }
 
     // Volume Mappings
-    XF86AudioRaiseVolume { spawn "noctalia-shell" "ipc" "call" "volume" "increase"; }
-    XF86AudioLowerVolume { spawn "noctalia-shell" "ipc" "call" "volume" "decrease"; }
-    XF86AudioMute { spawn "noctalia-shell" "ipc" "call" "volume" "muteOutput"; }
+    XF86AudioRaiseVolume { spawn "noctalia" "msg" "volume-up"; }
+    XF86AudioLowerVolume { spawn "noctalia" "msg" "volume-down"; }
+    XF86AudioMute       { spawn "noctalia" "msg" "volume-mute"; }
 
     // Generic Window Actions
     Mod+Q repeat=false { close-window; }
@@ -126,9 +126,8 @@ binds {
 // Dynamic Sub-System Execution Loop
 // ----------------------------------------------------------------
 spawn-at-startup "dbus-update-activation-environment" "--systemd" "DISPLAY" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
-// This command now expands the structural shell string we defined in shell-vars
-spawn-at-startup "noctalia-shell"
-//spawn-at-startup "dms" "run"
+spawn-at-startup "noctalia"
+
 
 config-notification { disable-failed; }
 //layer-rule {

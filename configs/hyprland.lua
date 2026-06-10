@@ -133,23 +133,23 @@ hl.gesture({ fingers = 3, direction = "left", action = "float" })
 -- Core Application Launchers (Noctalia IPC Targets)
 hl.bind("SUPER + RETURN", hl.dsp.exec_cmd(terminal))
 hl.bind("SUPER + E", hl.dsp.exec_cmd(fileManager))
-hl.bind("SUPER + SPACE", hl.dsp.exec_cmd("noctalia-shell ipc call launcher toggle"))
-hl.bind("SUPER + L", hl.dsp.exec_cmd("noctalia-shell ipc call lockScreen lock"))
+hl.bind("SUPER + SPACE", hl.dsp.exec_cmd("noctalia msg panel-toggle launcher"))
+hl.bind("SUPER + L", hl.dsp.exec_cmd("noctalia msg session lock"))
 
 -- UI Controls
-hl.bind("SUPER + S", hl.dsp.exec_cmd("noctalia-shell ipc call controlCenter toggle"))
-hl.bind("SUPER + comma", hl.dsp.exec_cmd("noctalia-shell ipc call settings toggle"))
+hl.bind("SUPER + S", hl.dsp.exec_cmd("noctalia msg panel-toggle control-center"))
+hl.bind("SUPER + comma", hl.dsp.exec_cmd("noctalia msg settings-toggle"))
 hl.bind("SUPER + SHIFT + M", hl.dsp.exec_cmd('loginctl terminate-user ""'))
 
 -- Noctalia Integrated Audio Endpoints
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("noctalia-shell ipc call volume increase"), { repeating = true, locked = true })
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("noctalia-shell ipc call volume decrease"), { repeating = true, locked = true })
-hl.bind("XF86AudioMute", hl.dsp.exec_cmd("noctalia-shell ipc call volume muteOutput"), { repeating = true, locked = true })
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("noctalia msg volume-up"), { repeating = true, locked = true })
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("noctalia msg volume-down"), { repeating = true, locked = true })
+hl.bind("XF86AudioMute", hl.dsp.exec_cmd("noctalia msg volume-mute"), { repeating = true, locked = true })
 
 -- Media Navigation Controls
-hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("qs -c noctalia-shell ipc call media playPause"), { locked = true })
-hl.bind("XF86AudioNext", hl.dsp.exec_cmd("qs -c noctalia-shell ipc call media playPause"), { locked = true })
-hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("qs -c noctalia-shell ipc call media previous"), { locked = true })
+hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("noctalia msg media-play"), { locked = true })
+hl.bind("XF86AudioNext", hl.dsp.exec_cmd("noctalia msg media-next"), { locked = true })
+hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("noctalia msg media-prev"), { locked = true })
 
 -- Window Actions
 hl.bind("SUPER + Q", hl.dsp.window.close())
@@ -209,7 +209,7 @@ hl.bind("SUPER + mouse:273", hl.dsp.window.resize(), { mouse = true })
 -- Autostart
 ----------------------------------------------------------------
 hl.on("hyprland.start", function()
-	hl.exec_cmd("noctalia-shell")
+	hl.exec_cmd("noctalia")
 end)
 
 -- Source generated workspace color pallets directly

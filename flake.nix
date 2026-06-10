@@ -10,9 +10,13 @@
     };
 
     noctalia = {
-      url = "github:noctalia-dev/noctalia-shell?ref=v5";
+      url = "github:noctalia-dev/noctalia";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
+        };
+#    noctalia-greeter = {
+#      url = "github:noctalia-dev/noctalia-greeter";
+#      inputs.nixpkgs.follows = "nixpkgs";
+#    };
   };
 
   outputs = inputs@{ self, nixpkgs, noctalia, home-manager, ... }: {
@@ -24,11 +28,12 @@
         ./modules/limine.nix
         ./hardware-configuration.nix
         ./configuration.nix
-        ./regreet/gruvbox.nix
+#        ./regreet/gruvbox.nix
         ./apps.nix
         ./modules/niri.nix
         ./modules/hyprland.nix
         ./modules/noctalia.nix
+        ./modules/greeter.nix
 #        ./modules/labwc.nix
       ];
     };

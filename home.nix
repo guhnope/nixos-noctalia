@@ -1,32 +1,19 @@
 # home.nix
-{ config, lib, pkgs, osConfig, username, activeTheme ? null, ... }:
-let
-  hyprland = osConfig.programs.hyprland.enable or false;
-  niri     = osConfig.programs.niri.enable or false;
-  noctalia = osConfig.programs.noctalia.enable or false;
-  labwc    = osConfig.programs.labwc.enable or false;
-in
+{ config, lib, pkgs, osConfig, username, ... }:
+
 {
   home.username = username;
   home.homeDirectory = "/home/${username}";
   home.stateVersion = "26.05";
   programs.home-manager.enable = true;
 
-  # 🖥️ DYNAMIC CONDITIONING MATRIX
+  # 🖥️ UNCONDITIONAL NOCTALIA DISK MAPPING
   xdg.configFile = {
-    # Static configs go here
-  }
-  // lib.optionalAttrs (hyprland && noctalia) {
-    "hypr/hyprland.lua".source = ./configs/hyprland.lua;
-  }
-
-  // lib.optionalAttrs (niri && noctalia) {
+    # Niri configurations are written directly with no conditionals
     "niri/config.kdl".source = ./configs/niri.kdl;
-  }
 
-  // lib.optionalAttrs (labwc && noctalia) {
-    "labwc/autostart".source = ./configs/labwc-autostart;
-    "labwc/rc.xml".source = ./configs/labwc-rc.xml;
+    # You can keep your fallback hyprland shell layout here if desired
+    "hypr/hyprland.lua".source = ./configs/hyprland.lua;
   };
 
   programs.fish = {
