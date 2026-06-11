@@ -5,6 +5,7 @@ local mod = "SUPER"
 local terminal = "ghostty"
 local fileManager = "nemo"
 local idlehandler = "hypridle"
+local browser = "brave"
 
 ----------------------------------------------------------------
 -- Monitor
@@ -118,13 +119,6 @@ hl.config({
 	},
 })
 
-----------------------------------------------------------------
--- Gestures
-----------------------------------------------------------------
-hl.gesture({ fingers = 4, direction = "horizontal", action = "workspace" })
-hl.gesture({ fingers = 3, direction = "down", action = "close" })
-hl.gesture({ fingers = 3, direction = "up", action = "fullscreen" })
-hl.gesture({ fingers = 3, direction = "left", action = "float" })
 
 ----------------------------------------------------------------
 -- Keybinds
@@ -135,9 +129,12 @@ hl.bind("SUPER + RETURN", hl.dsp.exec_cmd(terminal))
 hl.bind("SUPER + E", hl.dsp.exec_cmd(fileManager))
 hl.bind("SUPER + SPACE", hl.dsp.exec_cmd("noctalia msg panel-toggle launcher"))
 hl.bind("SUPER + L", hl.dsp.exec_cmd("noctalia msg session lock"))
+hl.bind("SUPER + B", hl.dsp.exec_cmd(browser))
+hl.bind("SUPER + G", hl.dsp.exec_cmd("steam"))
+hl.bind("SUPER + S", hl.dsp.exec_cmd("spotify"))
 
 -- UI Controls
-hl.bind("SUPER + S", hl.dsp.exec_cmd("noctalia msg panel-toggle control-center"))
+hl.bind("SUPER + C", hl.dsp.exec_cmd("noctalia msg panel-toggle control-center"))
 hl.bind("SUPER + comma", hl.dsp.exec_cmd("noctalia msg settings-toggle"))
 hl.bind("SUPER + SHIFT + M", hl.dsp.exec_cmd('loginctl terminate-user ""'))
 
@@ -209,9 +206,12 @@ hl.bind("SUPER + mouse:273", hl.dsp.window.resize(), { mouse = true })
 -- Autostart
 ----------------------------------------------------------------
 hl.on("hyprland.start", function()
-    hl.exec_cmd("hypridle &")
-	hl.exec_cmd("noctalia")
+	hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP DISPLAY XAUTHORITY")
+	hl.exec_cmd("hypridle &")
+	-- 🚀 Force Noctalia to inherit your full user terminal environment on startup
+	hl.exec_cmd("systemctl --user import-environment PATH WALYAND_DISPLAY DISPLAY XAUTHORITY")
+	hl.exec_cmd("bash --login -c 'noctalia'")
 end)
 
 -- Source generated workspace color pallets directly
--- dofile("~/.config/hypr/noctalia/noctalia-colors.lua")
+dofile(os.getenv("HOME") .. "/.config/hypr/noctalia/noctalia-colors.lua")

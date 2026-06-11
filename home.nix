@@ -9,8 +9,8 @@
   xdg.configFile = lib.mkMerge [
     (lib.optionalAttrs osConfig.programs.mango.enable {
       "mango/config.conf".source = ./configs/mango-config.conf;
-      "mango/bind.conf".source   = ./configs/mango-bind.conf;
-      "mango/rule.conf".source   = ./configs/mango-rule.conf;
+      "mango/bind.conf".source = ./configs/mango-bind.conf;
+      "mango/rule.conf".source = ./configs/mango-rule.conf;
     })
     (lib.optionalAttrs osConfig.programs.niri.enable {
       "niri/config.kdl".source = ./configs/niri.kdl;
