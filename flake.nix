@@ -8,9 +8,12 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     noctalia = {
       url = "github:noctalia-dev/noctalia";
+      inputs.nixpkgs.follows = "nixpkgs";
+        };
+    noctalia-greeter = {
+      url = "github:noctalia-dev/noctalia-greeter";
       inputs.nixpkgs.follows = "nixpkgs";
         };
     mango = {
@@ -19,7 +22,7 @@
       };
   };
 
-  outputs = inputs@{ self, nixpkgs, noctalia, mango, home-manager, ... }: {
+  outputs = inputs@{ self, nixpkgs, noctalia, noctalia-greeter, mango, home-manager, ... }: {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };
