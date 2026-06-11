@@ -1,16 +1,6 @@
 { pkgs, ... }:
 
 {
-  programs.steam = {
-    enable = true;
-    extraCompatPackages = with pkgs; [
-      proton-ge-bin
-      mangohud
-    ];
-  };
-
-  programs.gamemode.enable = true;
-
   environment.systemPackages = with pkgs; [
     lazygit
     git
@@ -38,71 +28,62 @@
     zed-editor
     qt6Packages.qt6ct
     nwg-look
-    adw-gtk3
-    catppuccin-gtk
-    gruvbox-gtk-theme
-    everforest-gtk-theme
     papirus-icon-theme
-    nordic
-
-    (pkgs.lib.hiPrio (pkgs.runCommand "launcher-hider-profile" {} ''
-      appsDir=$out/share/applications
-      mkdir -p $appsDir
-
-      # 1. Hide Neovim Launcher Wrapper
-      cat <<EOF > $appsDir/nvim.desktop
-      [Desktop Entry]
-      Type=Application
-      Name=Neovim
-      NoDisplay=true
-      Exec=nvim %F
-      EOF
-
-      cat <<EOF > $appsDir/hp-uiscan.desktop
-      [Desktop Entry]
-      Type=Application
-      Name=HP Linux Imaging and Printing Scanner
-      NoDisplay=true
-      Exec=hp-uiscan
-      EOF
-
-      cat <<EOF > $appsDir/hplip.desktop
-      [Desktop Entry]
-      Type=Application
-      Name=HPLIP Toolbox
-      NoDisplay=true
-      Exec=hp-toolbox
-      EOF
-
-      cat <<EOF > $appsDir/cups.desktop
-      [Desktop Entry]
-      Type=Application
-      Name=Manage Printing
-      NoDisplay=true
-      Exec=xdg-open http://localhost:631/
-      EOF
-
-      cat <<EOF > $appsDir/nwg-look.desktop
-      [Desktop Entry]
-      Type=Application
-      Name=nwg-look
-      NoDisplay=true
-      Exec=nwg-look
-      EOF
-
-      cat <<EOF > $appsDir/qt6ct.desktop
-      [Desktop Entry]
-      Type=Application
-      Name=Qt6 Configuration Tool
-      NoDisplay=true
-      Exec=qt6ct
-      EOF
-    ''))
+    papirus-folders
+    everforest-cursors
+    capitaine-cursors-themed
   ];
+
+  # 🌟 Natively modify the packages at the system layer to inject NoDisplay=true
+  nixpkgs.overlays = [
+    (final: prev: {
+      neovim = prev.neovim.overrideAttrs (old: {
+        postInstall = (old.postInstall or "") + ''
+          echo "NoDisplay=true" >> $out/share/applications/nvim.desktop
+        '';
+      });
+
+      nwg-look = prev.nwg-look.overrideAttrs (old: {
+        postInstall = (old.postInstall or "") + ''
+          echo "NoDisplay=true" >> $out/share/applications/nwg-look.desktop
+        '';
+      });
+
+      qt6Packages = prev.qt6Packages // {
+        qt6ct = prev.qt6Packages.qt6ct.overrideAttrs (old: {
+          postInstall = (old.postInstall or "") + ''
+            echo "NoDisplay=true" >> $out/share/applications/qt6ct.desktop
+          '';
+        });
+      };
+
+      # Overrides for printing/scanning packages
+      hplip = prev.hplip.overrideAttrs (old: {
+        postInstall = (old.postInstall or "") + ''
+          if [ -d "$out/share/applications" ]; then
+            for f in $out/share/applications/*.desktop; do
+              echo "NoDisplay=true" >> "$f"
+            done
+          fi
+        '';
+      });
+
+      cups = prev.cups.overrideAttrs (old: {
+        postInstall = (old.postInstall or "") + ''
+          if [ -d "$out/share/applications" ]; then
+            for f in $out/share/applications/*.desktop; do
+              echo "NoDisplay=true" >> "$f"
+            done
+          fi
+        '';
+      });
+    })
+  ];
+
   fonts.packages = with pkgs; [
-      nerd-fonts.jetbrains-mono
-      nerd-fonts.fira-code
-      noto-fonts-color-emoji
-      font-awesome
-    ];
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.fira-code
+    noto-fonts-color-emoji
+    font-awesome
+  ];
 }

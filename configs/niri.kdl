@@ -122,12 +122,7 @@ binds {
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 }
 
-// ----------------------------------------------------------------
-// Dynamic Sub-System Execution Loop
-// ----------------------------------------------------------------
-spawn-at-startup "dbus-update-activation-environment" "--systemd" "DISPLAY" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
 spawn-at-startup "noctalia"
-
 
 config-notification { disable-failed; }
 layer-rule {
