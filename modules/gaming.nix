@@ -22,7 +22,6 @@
   # 🚀 Gaming Applications & Tools
   environment.systemPackages = with pkgs; [
     # Wine & Compatibility layers
-    wineWowPackages.stable # Standard Wine runtime environment
     winetricks            # Installs missing Windows dependencies/DLLs
 
     # Launchers & Managers
