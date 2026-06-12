@@ -19,10 +19,6 @@
       "hypr/hyprland.lua".source  = ./configs/hyprland.lua;
       "hypr/hypridle.conf".source = ./configs/hypridle.conf;
     })
-    (lib.optionalAttrs (osConfig.programs ? labwc && osConfig.programs.labwc.enable) {
-      "labwc/autostart".source = ./configs/labwc-autostart;
-      "labwc/rc.xml".source    = ./configs/labwc-rc.xml;
-    })
   ];
 
   programs.fish = {

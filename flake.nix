@@ -38,7 +38,7 @@
         ./modules/noctalia.nix
         ./modules/greeter.nix
         ./modules/gaming.nix
-#        ./modules/labwc.nix
+        ./modules/labwc.nix
       ];
     };
   };
