@@ -208,4 +208,4 @@ hl.on("hyprland.start", function()
 end)
 
 -- Source generated workspace color pallets directly
-dofile(os.getenv("HOME") .. "/.config/hypr/noctalia/noctalia-colors.lua")
+dofile(os.getenv("HOME") .. "/.config/hypr/noctalia.lua")
