@@ -14,31 +14,28 @@
     fastfetch
     neovim
     ghostty
+    mediawriter
+    caja
     nemo
+    bitwarden-desktop
     engrampa
     mousepad
     paperwork
     spotify
+    ffmpegthumbnailer
+    gdk-pixbuf
     imv
     mpv
     brave
     discord
+    heroic
+    protontricks
     obsidian
     signal-desktop
     zed-editor
-    qt6Packages.qt6ct
-    adw-gtk3
-    nwg-look
-    papirus-icon-theme
-    papirus-folders
-    capitaine-cursors
-    material-cursors
-
     (pkgs.lib.hiPrio (pkgs.runCommand "launcher-hider-profile" {} ''
       appsDir=$out/share/applications
       mkdir -p $appsDir
-
-      # 1. Hide Neovim Launcher Wrapper
       cat <<EOF > $appsDir/nvim.desktop
       [Desktop Entry]
       Type=Application
@@ -70,24 +67,7 @@
       NoDisplay=true
       Exec=xdg-open http://localhost:631/
       EOF
-
-      cat <<EOF > $appsDir/nwg-look.desktop
-      [Desktop Entry]
-      Type=Application
-      Name=nwg-look
-      NoDisplay=true
-      Exec=nwg-look
-      EOF
-
-      cat <<EOF > $appsDir/qt6ct.desktop
-      [Desktop Entry]
-      Type=Application
-      Name=Qt6 Configuration Tool
-      NoDisplay=true
-      Exec=qt6ct
-      EOF
-    ''))
-  ];
+    ''))  ];
   # 🌟 Force Nemo to permanently silence the thumbnail cache warning banner (Native NixOS)
     programs.dconf.enable = true;
     programs.dconf.profiles.user.databases = [

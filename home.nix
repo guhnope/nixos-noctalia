@@ -15,6 +15,12 @@
     (lib.optionalAttrs osConfig.programs.niri.enable {
       "niri/config.kdl".source = ./configs/niri.kdl;
     })
+    (lib.optionalAttrs osConfig.programs.sway.enable {
+      "sway/config".source = ./configs/sway-config;
+    })
+    (lib.optionalAttrs osConfig.programs.scroll.enable {
+      "scroll/config".source = ./configs/sway-config;
+    })
     (lib.optionalAttrs osConfig.programs.hyprland.enable {
       "hypr/hyprland.lua".source  = ./configs/hyprland.lua;
       "hypr/hypridle.conf".source = ./configs/hypridle.conf;
