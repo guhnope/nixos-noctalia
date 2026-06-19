@@ -37,6 +37,7 @@
         /etc/nixos/hardware-configuration.nix
         ./configuration.nix
         ./apps.nix
+        ./modules/devices.nix
         ./modules/niri.nix
         ./modules/hyprland.nix
         ./modules/mango.nix
