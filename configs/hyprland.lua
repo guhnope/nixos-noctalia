@@ -45,7 +45,7 @@ hl.config({
 		gaps_in = 4,
 		gaps_out = 6,
 		border_size = 3,
-		layout = "dwindle",
+		layout = "scrolling",
 		snap = {
 			enabled = true,
 			respect_gaps = 1,
