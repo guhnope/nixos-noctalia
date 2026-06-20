@@ -1,5 +1,5 @@
 {
-  description = "NixOS Flake with Noctalia (Hyprland & Niri)";
+  description = "NixOS Flake with Noctalia for multi-compositor testing";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -11,11 +11,11 @@
     noctalia = {
       url = "github:noctalia-dev/noctalia";
       inputs.nixpkgs.follows = "nixpkgs";
-        };
+    };
     noctalia-greeter = {
       url = "github:noctalia-dev/noctalia-greeter";
       inputs.nixpkgs.follows = "nixpkgs";
-        };
+    };
     mango = {
       url = "github:mangowm/mango";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -26,26 +26,37 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, noctalia, noctalia-greeter, mango, scroll, home-manager, ... }: {
-    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      specialArgs = { inherit inputs; };
-      modules = [
-        home-manager.nixosModules.home-manager
-        inputs.scroll.nixosModules.default
-        ./modules/limine.nix
-        /etc/nixos/hardware-configuration.nix
-        ./configuration.nix
-        ./apps.nix
-        ./modules/devices.nix
-        ./modules/niri.nix
-        ./modules/hyprland.nix
-        ./modules/mango.nix
-        ./modules/sway.nix
-        ./modules/noctalia.nix
-        ./modules/greeter.nix
-        ./modules/gaming.nix
-      ];
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      noctalia,
+      noctalia-greeter,
+      mango,
+      scroll,
+      home-manager,
+      ...
+    }:
+    {
+      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit inputs; };
+        modules = [
+          home-manager.nixosModules.home-manager
+          inputs.scroll.nixosModules.default
+          ./modules/limine.nix
+          /etc/nixos/hardware-configuration.nix
+          ./configuration.nix
+          ./apps.nix
+          ./modules/devices.nix
+          ./modules/niri.nix
+          ./modules/hyprland.nix
+          ./modules/mango.nix
+          ./modules/sway.nix
+          ./modules/noctalia.nix
+          ./modules/greeter.nix
+          ./modules/gaming.nix
+        ];
+      };
     };
-  };
 }
